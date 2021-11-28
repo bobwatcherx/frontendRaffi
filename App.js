@@ -1,21 +1,41 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { NavigationContainer,DefaultTheme } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// SCREENS
+import Login from './screens/Login';
+import Register from './screens/Register';
+import Beranda from './screens/Beranda';
+import Buat from './screens/Buat';
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from 'recoil';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+const Stack = createNativeStackNavigator();
+
+export default function App(){
+    const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: '#FFF',
+    },
+  };
+  return(
+    <RecoilRoot>
+    <NavigationContainer theme={MyTheme}>
+    <Stack.Navigator screenOptions={{
+    headerShown: false, 
+  }}>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Beranda" component={Beranda} />
+        <Stack.Screen name="Buat" component={Buat} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    </RecoilRoot>
+    )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
